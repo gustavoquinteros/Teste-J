@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organograma Agência</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Organograma Agência</p>
+          <h1>Organograma Agência</h1>
+          <p class="subtitle">Atualizado automaticamente via CSV</p>
+        </div>
+        <div class="hero-meta">
+          <div class="stat-card">
+            <span class="stat-label">Pessoas</span>
+            <strong id="peopleCount">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Áreas</span>
+            <strong id="areaCount">0</strong>
+          </div>
+          <div class="status-pill" id="autoStatus">Auto atualização ativa</div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Filtros do organograma">
+        <label class="field">
+          <span>Buscar por nome ou cargo</span>
+          <input id="searchInput" type="search" placeholder="Ex.: Ana, Diretora, Mídia" />
+        </label>
+
+        <label class="field">
+          <span>Filtrar por área</span>
+          <select id="areaFilter">
+            <option value="all">Todas as áreas</option>
+          </select>
+        </label>
+
+        <button id="showAllBtn" class="ghost-button" type="button">Mostrar todos</button>
+      </section>
+
+      <section class="workspace">
+        <div class="feedback" id="feedback" hidden></div>
+        <div class="updated-line">
+          <span>Última atualização</span>
+          <strong id="lastUpdated">--</strong>
+        </div>
+        <div id="tree" class="tree" aria-live="polite"></div>
+      </section>
+    </main>
+  </body>
+</html>
