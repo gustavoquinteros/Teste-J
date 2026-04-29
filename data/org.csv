@@ -1,23 +1,2 @@
 id,parent_id,nome,cargo,area,nivel,tipo,status
-ceo,,Marina Costa,CEO,Direção,1,pessoa,ativo
-atendimento,ceo,Atendimento,Área,Atendimento,2,area,ativo
-criacao,ceo,Criação,Área,Criação,2,area,ativo
-midia,ceo,Mídia,Área,Mídia,2,area,ativo
-planejamento,ceo,Planejamento,Área,Planejamento,2,area,ativo
-producao,ceo,Produção,Área,Produção,2,area,ativo
-bi,ceo,BI e Performance,Área,BI,2,area,ativo
-ana,atendimento,Ana Ribeiro,Diretora de Atendimento,Atendimento,3,pessoa,ativo
-leo,atendimento,Leonardo Alves,Gerente de Contas,Atendimento,4,pessoa,ativo
-bia,atendimento,Beatriz Lima,Executiva de Contas,Atendimento,5,pessoa,ativo
-rafa,criacao,Rafael Torres,Diretor de Criação,Criação,3,pessoa,ativo
-giu,criacao,Giulia Martins,Diretora de Arte,Criação,4,pessoa,ativo
-caio,criacao,Caio Nunes,Redator,Criação,4,pessoa,ativo
-nina,criacao,Nina Prado,Designer,Criação,4,pessoa,ativo
-marcos,midia,Marcos Vieira,Head de Mídia,Mídia,3,pessoa,ativo
-lara,midia,Lara Souza,Analista de Mídia,Mídia,4,pessoa,ativo
-vitor,planejamento,Vitor Campos,Planner,Planejamento,3,pessoa,ativo
-amanda,planejamento,Amanda Freitas,Estrategista de Marca,Planejamento,4,pessoa,ativo
-diego,producao,Diego Rocha,Produtor Executivo,Produção,3,pessoa,ativo
-tati,producao,Tatiana Reis,Motion Designer,Produção,4,pessoa,ativo
-joao,bi,João Mendes,Coordenador de BI,BI,3,pessoa,ativo
 luiza,bi,Luiza Castro,Analista de Dados,BI,4,pessoa,ativo
