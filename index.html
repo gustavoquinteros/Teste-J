@@ -1,63 +1,1667 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Organograma Agência</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="app.js"></script>
-  </head>
-  <body>
-    <main class="shell">
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Organograma Agência</p>
-          <h1>Organograma Agência</h1>
-          <p class="subtitle">Atualizado automaticamente via CSV</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>702 Estados Unidos</title>
+  <meta name="description" content="Landing page 702 Estados Unidos — Address, View, Architecture." />
+
+  <style>
+    :root {
+      --carbon: #1d1d1b;
+      --carbon-deep: #10100f;
+      --carbon-translucent: rgba(29, 29, 27, 0.78);
+      --porcelain: #f4f0e8;
+      --mist: rgba(244, 240, 232, 0.68);
+      --mist-strong: rgba(244, 240, 232, 0.86);
+      --ink-soft: rgba(0, 0, 0, 0.7);
+      --ease-editorial: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --ease-silent: cubic-bezier(0.19, 1, 0.22, 1);
+      --max: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--carbon);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--mist);
+      background: var(--carbon);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    ::selection {
+      background: var(--porcelain);
+      color: #000;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      background: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      line-height: 1.6;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(244, 240, 232, 0.42);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: var(--carbon-translucent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(18px);
+      transform: translateY(-100%);
+      transition: transform 420ms var(--ease-silent);
+    }
+
+    .site-header.is-visible,
+    .site-header.is-open {
+      transform: translateY(0);
+    }
+
+    .header-inner {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-name {
+      color: var(--porcelain);
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      position: relative;
+      color: var(--mist);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 8px 0;
+      transition: color 250ms ease, letter-spacing 250ms ease;
+      white-space: nowrap;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 3px;
+      width: 0;
+      height: 1px;
+      background: var(--porcelain);
+      transition: width 250ms ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      color: var(--porcelain);
+      letter-spacing: 0.28em;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+      width: 100%;
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .menu-line {
+      width: 24px;
+      height: 1px;
+      background: var(--porcelain);
+      transition: transform 260ms ease, opacity 260ms ease;
+    }
+
+    .site-header.is-open .menu-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .site-header.is-open .menu-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .site-header.is-open .menu-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-nav {
+      display: none;
+      background: var(--carbon);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      padding: 28px 24px 34px;
+    }
+
+    .mobile-nav-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      background: var(--carbon);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(29, 29, 27, 0.28), rgba(29, 29, 27, 0.52)),
+        url("https://raw.githubusercontent.com/gustavokzintel/702-eua/main/ChatGPT-Image-7-de-abr.png");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05) translateY(var(--hero-y, 0px));
+      will-change: transform;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.3), rgba(29,29,27,0.82));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 112px;
+      padding-bottom: 48px;
+    }
+
+    .hero-topline {
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(244, 240, 232, 0.8);
+    }
+
+    .hero-logo-wrap {
+      width: min(760px, 100%);
+      align-self: center;
+      filter: drop-shadow(0 24px 45px rgba(0,0,0,0.55));
+    }
+
+    .hero-logo-wrap img {
+      width: 100%;
+      height: auto;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 48px;
+    }
+
+    .hero-copy {
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-copy .italic {
+      color: var(--porcelain);
+      font-style: italic;
+      font-size: 14px;
+      opacity: 0.92;
+    }
+
+    .hero-copy .specs {
+      color: var(--porcelain);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-copy .text {
+      color: var(--mist);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .hero-copy .address {
+      padding-top: 8px;
+      color: var(--mist);
+      font-size: 10px;
+      line-height: 1.8;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .primary-cta {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+      border: 1px solid var(--porcelain);
+      border-radius: 999px;
+      background: var(--porcelain);
+      color: var(--carbon);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      transition: background 300ms ease, color 300ms ease, transform 300ms ease;
+      white-space: nowrap;
+    }
+
+    .primary-cta:hover {
+      background: transparent;
+      color: var(--porcelain);
+      transform: translateY(-2px);
+    }
+
+    .film-section {
+      background: var(--carbon);
+      padding: 160px 0;
+    }
+
+    .section-center-head {
+      text-align: center;
+      margin-bottom: 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .section-title-light {
+      color: #fff;
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .film-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: min(100%, 1024px);
+      margin: 0 auto;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      background: #111;
+    }
+
+    .film-image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://raw.githubusercontent.com/gustavokzintel/702-eua/main/ChatGPT-Image-7-de-abra.png");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.02);
+      transition: transform 700ms var(--ease-editorial);
+    }
+
+    .film-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,0.4);
+      transition: background 700ms ease;
+    }
+
+    .film-frame:hover .film-image {
+      transform: scale(1.06);
+    }
+
+    .film-frame:hover .film-overlay {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .play-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.4);
+      display: grid;
+      place-items: center;
+      transition: transform 300ms ease, background 300ms ease;
+    }
+
+    .film-frame:hover .play-circle {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .manifesto {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      background: var(--carbon);
+      padding: 160px 0;
+      overflow: hidden;
+    }
+
+    .manifesto-side {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center;
+      color: rgba(244, 240, 232, 0.30);
+      white-space: nowrap;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .manifesto-list {
+      width: min(100%, 900px);
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .manifesto-item {
+      color: var(--porcelain);
+      font-size: clamp(1.65rem, 4vw, 3.2rem);
+      line-height: 1.32;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .manifesto-item strong {
+      font-weight: 520;
+    }
+
+    .gallery {
+      position: relative;
+      background: var(--porcelain);
+      color: var(--carbon);
+      padding: 96px 0;
+      overflow: hidden;
+    }
+
+    .gallery-watermark {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30vw;
+      min-width: 300px;
+      opacity: 0.035;
+      transform: translateY(-25%);
+      filter: grayscale(1) invert(1);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .gallery-head,
+    .plants-head {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+
+    .dark-title {
+      color: var(--carbon);
+      font-size: clamp(3.2rem, 7vw, 6.4rem);
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .dark-copy {
+      max-width: 430px;
+      color: rgba(0,0,0,0.68);
+      line-height: 2;
+      font-size: 15px;
+    }
+
+    .head-line {
+      height: 1px;
+      width: 100%;
+      background: rgba(0,0,0,0.2);
+      margin-bottom: 16px;
+    }
+
+    .gallery-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-card {
+      position: relative;
+      min-height: 440px;
+      overflow: hidden;
+      background: var(--carbon);
+      cursor: pointer;
+      color: #fff;
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+
+    .gallery-card-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 750ms var(--ease-editorial);
+      z-index: -2;
+    }
+
+    .gallery-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2), rgba(0,0,0,0.82));
+      opacity: 0.92;
+    }
+
+    .gallery-card:hover .gallery-card-image {
+      transform: scale(1.1);
+    }
+
+    .gallery-card:hover {
+      transform: scale(1.01);
+    }
+
+    .gallery-card-content {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 32px;
+    }
+
+    .gallery-card-eyebrow {
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.62);
+      font-size: 9px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .gallery-card-title {
+      color: #fff;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .gallery-card-copy {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.68);
+      font-size: 13px;
+      line-height: 1.75;
+      max-width: 280px;
+    }
+
+    .lazer {
+      background: var(--carbon);
+      overflow: hidden;
+    }
+
+    .lazer-title-wrap {
+      padding: 128px 24px 88px;
+      text-align: center;
+    }
+
+    .lazer-title {
+      color: var(--porcelain);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .lazer-shell {
+      position: relative;
+      height: 70svh;
+      min-height: 500px;
+    }
+
+    .lazer-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      transition: transform 720ms var(--ease-editorial);
+      will-change: transform;
+    }
+
+    .lazer-slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .lazer-slide-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .lazer-static-panel {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .lazer-diagonal {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 52%;
+      height: 100%;
+      background: var(--carbon);
+      clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .lazer-copy-wrap {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 48%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 48px 96px 48px 48px;
+      text-align: right;
+      pointer-events: auto;
+    }
+
+    .lazer-copy {
+      width: min(100%, 380px);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 28px;
+      animation: copyIn 420ms var(--ease-editorial) both;
+    }
+
+    @keyframes copyIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .lazer-tag {
+      color: var(--mist);
+      font-size: 10px;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+    }
+
+    .lazer-copy h3 {
+      color: var(--porcelain);
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .lazer-copy p {
+      color: var(--mist);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .slider-arrows {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .circle-btn {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      background: transparent;
+      transition: background 260ms ease, color 260ms ease, transform 260ms ease;
+    }
+
+    .circle-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .plants {
+      background: var(--porcelain);
+      color: var(--carbon);
+      padding: 120px 0;
+    }
+
+    .plants-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .plant-card {
+      background: rgba(29,29,27,0.045);
+      border: 1px solid rgba(29,29,27,0.10);
+      overflow: hidden;
+      transition: transform 320ms var(--ease-editorial), background 320ms ease;
+    }
+
+    .plant-card:hover {
+      transform: translateY(-6px);
+      background: rgba(29,29,27,0.075);
+    }
+
+    .plant-image {
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(29,29,27,0.08);
+    }
+
+    .plant-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .plant-category {
+      color: rgba(0,0,0,0.48);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .plant-content h3 {
+      color: var(--carbon);
+      font-size: 25px;
+      font-weight: 320;
+      letter-spacing: 0.12em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .plant-content p {
+      color: rgba(0,0,0,0.64);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .plant-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .plant-meta span {
+      display: block;
+      color: rgba(0,0,0,0.45);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .plant-meta strong {
+      display: block;
+      color: var(--carbon);
+      font-size: 13px;
+      font-weight: 520;
+      line-height: 1.5;
+    }
+
+    .contact {
+      min-height: 100svh;
+      background: var(--carbon-deep);
+      color: var(--porcelain);
+      overflow: hidden;
+    }
+
+    .contact-grid {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-visual {
+      position: relative;
+      min-height: 400px;
+      overflow: hidden;
+    }
+
+    .contact-image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20183013.png");
+      background-size: cover;
+      background-position: left center;
+    }
+
+    .contact-mask {
+      position: absolute;
+      inset: 0;
+      background: var(--carbon-deep);
+      clip-path: polygon(78% 0, 100% 0, 100% 100%, 52% 100%);
+    }
+
+    .vertical-label {
+      position: absolute;
+      top: 48px;
+      left: 48px;
+      writing-mode: vertical-lr;
+      color: rgba(255,255,255,0.5);
+      opacity: 0.6;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .contact-content {
+      width: min(100%, 680px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 48px;
+      padding: 96px clamp(32px, 7vw, 128px);
+    }
+
+    .contact-title {
+      color: var(--porcelain);
+      font-size: clamp(2.3rem, 4vw, 4.2rem);
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      line-height: 1.28;
+      text-transform: uppercase;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .field {
+      border-bottom: 1px solid rgba(255,255,255,0.20);
+      padding: 14px 0;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--porcelain);
+      font-size: 17px;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(244,240,232,0.42);
+    }
+
+    .submit-btn {
+      align-self: flex-start;
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 16px 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.30);
+      color: #fff;
+      background: transparent;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      transition: background 260ms ease, color 260ms ease, transform 260ms ease;
+    }
+
+    .submit-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    .success-message {
+      display: none;
+      color: var(--porcelain);
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .contact-content.is-submitted .contact-form {
+      display: none;
+    }
+
+    .contact-content.is-submitted .success-message {
+      display: block;
+    }
+
+    .site-footer {
+      background: #0e0e0c;
+      color: var(--mist);
+      padding: 96px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 64px;
+    }
+
+    .footer-brand {
+      color: var(--porcelain);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-line {
+      color: rgba(255,255,255,0.30);
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0,0,0,0.90);
+      backdrop-filter: blur(18px);
+    }
+
+    .modal.is-open {
+      display: flex;
+      animation: modalFade 220ms ease both;
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-box {
+      position: relative;
+      width: min(100%, 1152px);
+      background: var(--carbon);
+      overflow: hidden;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7);
+      animation: modalIn 260ms var(--ease-editorial) both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      transition: background 220ms ease, color 220ms ease;
+    }
+
+    .modal-close:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .modal-media {
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .modal-caption {
+      padding: 24px 28px 28px;
+      color: var(--mist);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal-caption h3 {
+      color: var(--porcelain);
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .modal-caption p {
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: inline-flex;
+      }
+
+      .site-header.is-open .mobile-nav {
+        display: block;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .manifesto-side {
+        display: none;
+      }
+
+      .gallery-head,
+      .plants-head {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .gallery-grid,
+      .plants-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-card {
+        min-height: 390px;
+      }
+
+      .lazer-shell {
+        height: auto;
+        min-height: auto;
+      }
+
+      .lazer-track {
+        position: relative;
+        height: 520px;
+      }
+
+      .lazer-slide-image {
+        width: 100%;
+      }
+
+      .lazer-static-panel {
+        position: relative;
+        min-height: 430px;
+        background: var(--carbon);
+      }
+
+      .lazer-diagonal {
+        display: none;
+      }
+
+      .lazer-copy-wrap {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 56px 24px 80px;
+        text-align: left;
+      }
+
+      .lazer-copy {
+        align-items: flex-start;
+        max-width: 540px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-visual {
+        min-height: 52svh;
+      }
+
+      .contact-mask {
+        clip-path: polygon(0 78%, 100% 56%, 100% 100%, 0 100%);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding-inline: 18px;
+      }
+
+      .brand-name {
+        font-size: 11px;
+      }
+
+      .hero-content {
+        padding-top: 96px;
+        padding-bottom: 34px;
+      }
+
+      .hero-logo-wrap {
+        margin: 80px 0;
+      }
+
+      .primary-cta {
+        width: 100%;
+      }
+
+      .section-center-head {
+        margin-bottom: 54px;
+      }
+
+      .film-section,
+      .manifesto,
+      .plants {
+        padding: 96px 0;
+      }
+
+      .gallery {
+        padding: 72px 0;
+      }
+
+      .gallery-card-content,
+      .plant-content {
+        padding: 24px;
+      }
+
+      .lazer-title-wrap {
+        padding: 88px 18px 56px;
+      }
+
+      .lazer-track {
+        height: 430px;
+      }
+
+      .contact-content {
+        padding: 72px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script id="site-data" type="application/json">
+    {
+      "navLinks": [
+        { "id": "hero", "label": "Home" },
+        { "id": "manifesto", "label": "702 Estados Unidos" },
+        { "id": "galeria", "label": "Galeria" },
+        { "id": "diferenciais", "label": "Lazer" },
+        { "id": "plantas", "label": "Plantas" },
+        { "id": "contato", "label": "Contato" }
+      ],
+      "manifesto": [
+        { "text": "Presença absoluta:", "bold": " Rua Estados Unidos, um endereço que se impõe." },
+        { "text": "Horizonte particular:", "bold": " vista irrestrita para o verde do Jardim Europa." },
+        { "text": "Precisão sem excessos:", "bold": " projeto irreplicável by Triptyque." }
+      ],
+      "gallery": [
+        {
+          "title": "Rua Estados Unidos",
+          "eyebrow": "ADDRESS",
+          "copy": "Presença absoluta em um endereço que se impõe.",
+          "type": "facade",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180620.png",
+          "alt": "Fachada do 702 Estados Unidos ao entardecer"
+        },
+        {
+          "title": "View",
+          "eyebrow": "VIEW BY JARDIM EUROPA",
+          "copy": "Horizonte particular para o verde do Jardim Europa.",
+          "type": "view",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180559.png",
+          "alt": "Vista para o Jardim Europa ao entardecer"
+        },
+        {
+          "title": "Architecture",
+          "eyebrow": "ARCHITECTURE BY TRIPTYQUE",
+          "copy": "Precisão sem excessos em um projeto irreplicável.",
+          "type": "architecture",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180535.png",
+          "alt": "Detalhe arquitetônico da fachada verde"
+        }
+      ],
+      "lazer": [
+        {
+          "title": "Fitness",
+          "desc": "Intensidade e foco em espaços que inspiram superação.",
+          "tag": "01 / Workout at Home",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180612.png"
+        },
+        {
+          "title": "Piscina",
+          "desc": "Momentos de pausa em cenários criados para desacelerar o tempo.",
+          "tag": "02 / Wellness at Home",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180543.png"
+        },
+        {
+          "title": "Espaço Gourmet",
+          "desc": "Encontros que merecem o tempo certo e o lugar exato.",
+          "tag": "03 / Gourmet at Home",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180543.png"
+        },
+        {
+          "title": "Solarium",
+          "desc": "O entardecer ganha nova dimensão quando o Jardim Europa expande seus horizontes.",
+          "tag": "04 / Sunshine by Jardim Europa",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20180543.png"
+        }
+      ],
+      "plants": [
+        {
+          "category": "Apartamentos tipo",
+          "title": "Apartamentos tipo",
+          "description": "Plantas de 50 m² e 56 m² com 1 dormitório, e 70 m² com 2 dormitórios.",
+          "area": "50 m², 56 m² e 70 m²",
+          "layout": "1 e 2 dormitórios",
+          "type": "Tipo",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20145917.png",
+          "alt": "Planta de apartamento tipo"
+        },
+        {
+          "category": "Apartamentos Garden",
+          "title": "Apartamentos Garden",
+          "description": "Gardens com metragens de 70 m², 99 m², 117 m², 135 m² e 147 m².",
+          "area": "70 m² a 147 m²",
+          "layout": "Gardens",
+          "type": "Garden",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20145917.png",
+          "alt": "Planta de apartamento Garden"
+        },
+        {
+          "category": "Penthouses",
+          "title": "Penthouses",
+          "description": "Penthouses de 143 m² e 165 m² com 2 suítes.",
+          "area": "143 m² e 165 m²",
+          "layout": "2 suítes",
+          "type": "Penthouse",
+          "image": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20145917.png",
+          "alt": "Planta de penthouse"
+        }
+      ],
+      "assets": {
+        "logo": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Logo_negativo_centra.svg",
+        "hero": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/ChatGPT-Image-7-de-abr.png",
+        "film": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/ChatGPT-Image-7-de-abra.png",
+        "contact": "https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Captura%20de%20tela%202026-04-30%20183013.png"
+      }
+    }
+  </script>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#hero" class="brand-name" aria-label="Ir para o início">702 Estados Unidos</a>
+      <nav class="desktop-nav" id="desktopNav" aria-label="Navegação principal"></nav>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <div class="mobile-nav-inner" id="mobileNav"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <p class="hero-topline">ADDRESS | VIEW | ARCHITECTURE</p>
+        <div class="hero-logo-wrap">
+          <img src="https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Logo_negativo_centra.svg" alt="702" onerror="this.style.display='none'" />
         </div>
-        <div class="hero-meta">
-          <div class="stat-card">
-            <span class="stat-label">Pessoas</span>
-            <strong id="peopleCount">0</strong>
+        <div class="hero-bottom">
+          <div class="hero-copy">
+            <p class="italic">Quando nada é supérfluo, tudo é definitivo.</p>
+            <p class="specs">50m² a 165m² · 1 e 2 dorms · 1 vaga</p>
+            <p class="text">O lifestyle dos Jardins e a essência do Jardim Europa juntos em um endereço.</p>
+            <p class="address">Rua Estados Unidos, 702 - Jardins, São Paulo / SP</p>
           </div>
-          <div class="stat-card">
-            <span class="stat-label">Áreas</span>
-            <strong id="areaCount">0</strong>
+          <a href="#contato" class="primary-cta">Tenho Interesse</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="film-section">
+      <div class="container">
+        <header class="section-center-head reveal">
+          <p class="eyebrow">Filme da Campanha</p>
+          <h2 class="section-title-light">702 Estados Unidos</h2>
+        </header>
+        <button class="film-frame reveal" type="button" aria-label="Reproduzir filme da campanha">
+          <span class="film-image" aria-hidden="true"></span>
+          <span class="film-overlay" aria-hidden="true">
+            <span class="play-circle">
+              <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" fill="currentColor" style="color: #fff;"></path>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section id="manifesto" class="manifesto">
+      <div class="manifesto-side">Address | View | Architecture</div>
+      <div class="container">
+        <div class="manifesto-list" id="manifestoList"></div>
+      </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+      <img class="gallery-watermark" src="https://raw.githubusercontent.com/gustavokzintel/702-eua/main/Logo_negativo_centra.svg" alt="" aria-hidden="true" onerror="this.style.display='none'" />
+      <div class="container">
+        <header class="gallery-head reveal">
+          <div>
+            <h2 class="dark-title">Galeria</h2>
+            <p class="dark-copy">Lugar, perspectiva e forma em uma sequência visual pensada para apresentar o 702 Estados Unidos.</p>
           </div>
-          <div class="status-pill" id="autoStatus">Auto atualização ativa</div>
+          <div class="head-line" aria-hidden="true"></div>
+        </header>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section id="diferenciais" class="lazer">
+      <div class="lazer-title-wrap reveal">
+        <h2 class="lazer-title">At Home.</h2>
+      </div>
+      <div class="lazer-shell">
+        <div class="lazer-track" id="lazerTrack"></div>
+        <div class="lazer-static-panel">
+          <div class="lazer-diagonal" aria-hidden="true"></div>
+          <div class="lazer-copy-wrap">
+            <div class="lazer-copy" id="lazerCopy"></div>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="controls" aria-label="Filtros do organograma">
-        <label class="field">
-          <span>Buscar por nome ou cargo</span>
-          <input id="searchInput" type="search" placeholder="Ex.: Ana, Diretora, Mídia" />
-        </label>
+    <section id="plantas" class="plants">
+      <div class="container">
+        <header class="plants-head reveal">
+          <div>
+            <h2 class="dark-title">Plantas</h2>
+            <p class="dark-copy">Tipologias pensadas para diferentes formas de viver, com metragens de 50 m² a 165 m².</p>
+          </div>
+          <div class="head-line" aria-hidden="true"></div>
+        </header>
+        <div class="plants-grid" id="plantsGrid"></div>
+      </div>
+    </section>
 
-        <label class="field">
-          <span>Filtrar por área</span>
-          <select id="areaFilter">
-            <option value="all">Todas as áreas</option>
-          </select>
-        </label>
-
-        <button id="showAllBtn" class="ghost-button" type="button">Mostrar todos</button>
-      </section>
-
-      <section class="workspace">
-        <div class="feedback" id="feedback" hidden></div>
-        <div class="updated-line">
-          <span>Última atualização</span>
-          <strong id="lastUpdated">--</strong>
+    <section id="contato" class="contact">
+      <div class="contact-grid">
+        <div class="contact-visual">
+          <div class="contact-image" aria-hidden="true"></div>
+          <div class="contact-mask" aria-hidden="true"></div>
+          <div class="vertical-label">Address | View | Architecture</div>
         </div>
-        <div id="tree" class="tree" aria-live="polite"></div>
-      </section>
-    </main>
-  </body>
+        <div class="contact-content" id="contactContent">
+          <h2 class="contact-title">Preencha o formulário e prepare-se para viver uma nova etapa.</h2>
+          <form class="contact-form" id="contactForm">
+            <div class="field">
+              <input type="text" name="name" placeholder="Seu nome" required />
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="Seu e-mail" />
+            </div>
+            <div class="field">
+              <input type="tel" name="phone" placeholder="Seu telefone" />
+            </div>
+            <div class="field">
+              <textarea name="msg" rows="3" placeholder="Mensagem"></textarea>
+            </div>
+            <button class="submit-btn" type="submit">
+              Enviar Interesse
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </form>
+          <div class="success-message">Obrigado.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand">702 Estados Unidos</p>
+        <p class="footer-line">Address | View | Architecture</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Imagem da galeria">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Fechar galeria">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="modal-media" id="modalMedia"></div>
+      <div class="modal-caption">
+        <h3 id="modalTitle"></h3>
+        <p id="modalCopy"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = JSON.parse(document.getElementById('site-data').textContent);
+
+    const icons = {
+      chevronLeft: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>',
+      chevronRight: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>'
+    };
+
+    const header = document.getElementById('siteHeader');
+    const menuBtn = document.getElementById('menuBtn');
+    const desktopNav = document.getElementById('desktopNav');
+    const mobileNav = document.getElementById('mobileNav');
+    const sections = DATA.navLinks.map(link => link.id);
+
+    function navTemplate(link) {
+      return `<a href="#${link.id}" class="nav-link" data-nav-link="${link.id}">${link.label}</a>`;
+    }
+
+    desktopNav.innerHTML = DATA.navLinks.map(navTemplate).join('');
+    mobileNav.innerHTML = DATA.navLinks.map(navTemplate).join('');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('is-open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mobileNav.addEventListener('click', event => {
+      if (event.target.closest('a')) {
+        header.classList.remove('is-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    function updateHeaderAndNav() {
+      const y = window.scrollY;
+      header.classList.toggle('is-visible', y > 80);
+      document.documentElement.style.setProperty('--hero-y', `${Math.min(y * 0.18, 150)}px`);
+
+      const scrollPos = y + 110;
+      let active = 'hero';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) active = id;
+      }
+      document.querySelectorAll('[data-nav-link]').forEach(link => {
+        link.classList.toggle('is-active', link.dataset.navLink === active);
+      });
+    }
+
+    window.addEventListener('scroll', updateHeaderAndNav, { passive: true });
+    updateHeaderAndNav();
+
+    const manifestoList = document.getElementById('manifestoList');
+    manifestoList.innerHTML = DATA.manifesto.map((item, index) => `
+      <p class="manifesto-item reveal" style="transition-delay: ${index * 160}ms">
+        <strong>${item.text}</strong>${item.bold}
+      </p>
+    `).join('');
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    galleryGrid.innerHTML = DATA.gallery.map((item, index) => `
+      <article class="gallery-card reveal" data-gallery-index="${index}" tabindex="0" role="button" aria-label="Abrir imagem ${item.title}">
+        <div class="gallery-card-image" style="background-image: url('${item.image}')" aria-hidden="true"></div>
+        <div class="gallery-card-content">
+          <p class="gallery-card-eyebrow">${item.eyebrow}</p>
+          <h3 class="gallery-card-title">${item.title}</h3>
+          <p class="gallery-card-copy">${item.copy}</p>
+        </div>
+      </article>
+    `).join('');
+
+    const modal = document.getElementById('galleryModal');
+    const modalMedia = document.getElementById('modalMedia');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCopy = document.getElementById('modalCopy');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(index) {
+      const item = DATA.gallery[index];
+      modalMedia.style.backgroundImage = `url('${item.image}')`;
+      modalTitle.textContent = item.title;
+      modalCopy.textContent = item.copy;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    galleryGrid.addEventListener('click', event => {
+      const card = event.target.closest('[data-gallery-index]');
+      if (card) openModal(Number(card.dataset.galleryIndex));
+    });
+
+    galleryGrid.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const card = event.target.closest('[data-gallery-index]');
+      if (card) {
+        event.preventDefault();
+        openModal(Number(card.dataset.galleryIndex));
+      }
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', event => {
+      if (event.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeModal();
+    });
+
+    const lazerTrack = document.getElementById('lazerTrack');
+    const lazerCopy = document.getElementById('lazerCopy');
+    let lazerIndex = 0;
+
+    lazerTrack.innerHTML = DATA.lazer.map(slide => `
+      <div class="lazer-slide">
+        <div class="lazer-slide-image" style="background-image: url('${slide.image}')" aria-hidden="true"></div>
+      </div>
+    `).join('');
+
+    function renderLazer() {
+      const slide = DATA.lazer[lazerIndex];
+      lazerTrack.style.transform = `translateX(-${lazerIndex * 100}%)`;
+      lazerCopy.style.animation = 'none';
+      void lazerCopy.offsetWidth;
+      lazerCopy.style.animation = '';
+      lazerCopy.innerHTML = `
+        <p class="lazer-tag">${slide.tag}</p>
+        <h3>${slide.title}</h3>
+        <p>${slide.desc}</p>
+        <div class="slider-arrows">
+          <button class="circle-btn" type="button" id="lazerPrev" aria-label="Slide anterior">${icons.chevronLeft}</button>
+          <button class="circle-btn" type="button" id="lazerNext" aria-label="Próximo slide">${icons.chevronRight}</button>
+        </div>
+      `;
+      document.getElementById('lazerPrev').addEventListener('click', () => {
+        lazerIndex = (lazerIndex - 1 + DATA.lazer.length) % DATA.lazer.length;
+        renderLazer();
+      });
+      document.getElementById('lazerNext').addEventListener('click', () => {
+        lazerIndex = (lazerIndex + 1) % DATA.lazer.length;
+        renderLazer();
+      });
+    }
+
+    renderLazer();
+
+    const plantsGrid = document.getElementById('plantsGrid');
+    plantsGrid.innerHTML = DATA.plants.map(item => `
+      <article class="plant-card reveal">
+        <div class="plant-image" style="background-image: url('${item.image}')" role="img" aria-label="${item.alt}"></div>
+        <div class="plant-content">
+          <p class="plant-category">${item.category}</p>
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+          <div class="plant-meta">
+            <div>
+              <span>Área</span>
+              <strong>${item.area}</strong>
+            </div>
+            <div>
+              <span>Layout</span>
+              <strong>${item.layout}</strong>
+            </div>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const contactContent = document.getElementById('contactContent');
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', event => {
+      event.preventDefault();
+      contactContent.classList.add('is-submitted');
+    });
+  </script>
+</body>
 </html>
